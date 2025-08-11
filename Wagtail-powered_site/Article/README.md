@@ -12,7 +12,8 @@ This project is a news aggregator website built with Django and Wagtail. It incl
 1.  **Clone the Repository**
 
     ```bash
-    git clone <your-repository-url>
+    git clone https://github.com/Biruktadele/news-scraper-cms
+
     cd Wagtail-powered_site/Article
     ```
 
