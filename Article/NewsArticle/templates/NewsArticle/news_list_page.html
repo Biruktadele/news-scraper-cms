@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+<style>
+  /* Container to center content and set max width */
+  .news-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color: #111827;
+  }
+
+  h1 {
+    font-weight: 700;
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: #1f2937; /* Dark slate */
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 0.5rem;
+  }
+
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  li {
+    background: #f9fafb; /* Light gray */
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 5px rgb(0 0 0 / 0.05);
+    transition: box-shadow 0.3s ease;
+  }
+
+  li:hover {
+    box-shadow: 0 6px 12px rgb(0 0 0 / 0.1);
+  }
+
+  a {
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: #2563eb; /* Blue-600 */
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  a:hover {
+    color: #1e40af; /* Blue-800 */
+    text-decoration: underline;
+  }
+
+  p {
+    margin: 0.5rem 0 0.75rem;
+    font-size: 1rem;
+    color: #4b5563; /* Gray-600 */
+    line-height: 1.5;
+  }
+
+  small {
+    font-size: 0.875rem;
+    color: #6b7280; /* Gray-500 */
+  }
+
+  /* No articles message styling */
+  .no-articles {
+    text-align: center;
+    color: #9ca3af; /* Gray-400 */
+    font-style: italic;
+    margin-top: 3rem;
+    font-size: 1.125rem;
+  }
+</style>
+
+<div class="news-container">
+  <h1>{{ page.title }}</h1>
+
+  <ul>
+    {% for article in news_articles %}
+      {% with article=article.specific %}
+        <li>
+          <a href="{{ article.url }}">{{ article.title }}</a>
+          <p>{{ article.summary }}</p>
+          <small>Published on {{ article.publication_date }}</small>
+        </li>
+      {% endwith %}
+    {% empty %}
+      <li class="no-articles">No articles found yet — run <code>python manage.py scrape_news</code> or add articles in the admin.</li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% endblock %}
